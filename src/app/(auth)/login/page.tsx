@@ -35,7 +35,7 @@ export default function Login() {
             Login to manage your linku
           </p>
 
-          <Form action={formAction} className="space-y-5">
+          <Form action={formAction} className="space-y-2">
             {state?.errors?.message && (
               <div className="bg-red-50 text-center border border-red-200 text-red-700 px-4 py-3 rounded-lg">
                 {state.errors.message}

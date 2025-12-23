@@ -44,7 +44,8 @@ export async function updateSession(request: NextRequest) {
     (request.nextUrl.pathname.startsWith("/dashboard") ||
       request.nextUrl.pathname.startsWith("/profile") ||
       request.nextUrl.pathname.startsWith("/share") ||
-      request.nextUrl.pathname.startsWith("/preview"))
+      request.nextUrl.pathname.startsWith("/preview")||
+      request.nextUrl.pathname.startsWith("/get-started"))
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
