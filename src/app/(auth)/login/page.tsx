@@ -1,17 +1,17 @@
 "use client";
 import Link from "next/link";
 import Form from "next/form";
-import { Link2, Mail, Lock, Eye, EyeOff,LoaderCircle } from "lucide-react";
+import { Link2, Mail, Lock, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useActionState, useState } from "react";
-import { login, LoginFormState } from "../actions";
+import { login, LoginFormState } from "@/actions/login";
 
 export default function Login() {
   const initialState: LoginFormState = {
     errors: {},
     inputs: {
       email: "",
-      password: ""
-    }
+      password: "",
+    },
   };
   const [state, formAction, isPending] = useActionState(login, initialState);
   const [showPassword, setShowPassword] = useState(false);
@@ -57,9 +57,11 @@ export default function Login() {
                   required
                 />
               </div>
-                {state?.errors?.email && (
-                  <p className="ml-1 text-sm text-red-600">{state.errors.email}</p>
-                )}
+              {state?.errors?.email && (
+                <p className="ml-1 text-sm text-red-600">
+                  {state.errors.email}
+                </p>
+              )}
             </div>
 
             <div>
@@ -80,7 +82,7 @@ export default function Login() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  >
+                >
                   {showPassword ? (
                     <EyeOff className="w-5 h-5" />
                   ) : (
@@ -88,9 +90,11 @@ export default function Login() {
                   )}
                 </button>
               </div>
-                  {state?.errors?.password && (
-                    <p className="ml-1 text-sm text-red-600">{state.errors.password}</p>
-                  )}
+              {state?.errors?.password && (
+                <p className="ml-1 text-sm text-red-600">
+                  {state.errors.password}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-end text-sm pt-2">
@@ -107,7 +111,11 @@ export default function Login() {
               disabled={isPending}
               className="w-full py-3.5 bg-linear-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all hover:scale-[1.02] mt-6"
             >
-              {isPending ? <LoaderCircle className="animate-spin mx-auto" /> : "Sign In"}
+              {isPending ? (
+                <LoaderCircle className="animate-spin mx-auto" />
+              ) : (
+                "Sign In"
+              )}
             </button>
           </Form>
 

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useActionState } from "react";
-import { register, registerFormState } from "../actions";
+import { register, registerFormState } from "@/actions/register";
 import Link from "next/link";
 import { Link2, Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import Form from "next/form";
