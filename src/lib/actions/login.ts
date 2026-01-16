@@ -1,12 +1,12 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.email(),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
+  password: z.string(),
 });
 export type LoginFormState = {
   errors?: LoginError;
@@ -56,7 +56,7 @@ export async function login(
   const { error } = await supabase.auth.signInWithPassword(validation.data);
   if (error) {
     return {
-      errors: { message: "Invalid Email or Password" },
+      errors: { message: error.message },
       inputs: data,
     };
   }

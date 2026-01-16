@@ -8,14 +8,14 @@ export async function updateSession(request: NextRequest) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
       cookies: {
         getAll() {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({
@@ -28,7 +28,6 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-  
 
   // Do not run code between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
@@ -36,23 +35,23 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getClaims()
+  const user = data?.claims
 
   if (
     !user &&
     (request.nextUrl.pathname.startsWith("/dashboard") ||
       request.nextUrl.pathname.startsWith("/profile") ||
       request.nextUrl.pathname.startsWith("/share") ||
-      request.nextUrl.pathname.startsWith("/preview")||
+      request.nextUrl.pathname.startsWith("/preview") ||
       request.nextUrl.pathname.startsWith("/get-started"))
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
-  } else if (
+  } 
+  if (
     user &&
     (request.nextUrl.pathname.startsWith("/login") ||
       request.nextUrl.pathname.endsWith("/register") ||

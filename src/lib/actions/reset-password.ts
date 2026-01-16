@@ -1,17 +1,16 @@
 "use server";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
-
-const registerSchema = z
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+const resetPasswordSchema = z
   .object({
-    email: z.email(),
+    code: z.string().nonempty("Code is required"),
     password: z
       .string()
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+        "Password must be at least 8 characters long, include one lowercase letter, one uppercase letter, one number, and one special character"
       ),
     confirmPassword: z.string(),
   })
@@ -19,40 +18,42 @@ const registerSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
-export type registerFormState = {
-  errors?: registerError;
+
+export type resetPasswordFormState = {
+  errors?: resetPasswordError;
   inputs?: {
-    email?: string;
+    code?: string;
     password?: string;
     confirmPassword?: string;
   };
 };
-export type registerError = {
+
+export type resetPasswordError = {
   message?: string;
-  email?: string;
   password?: string;
   confirmPassword?: string;
 };
-export async function register(
-  prevState: registerFormState | undefined,
+
+export async function resetPassword(
+  prevState: resetPasswordFormState | undefined,
   formData: FormData
 ) {
   const data = {
-    email: formData.get("email") as string,
+    code: formData.get("code") as string,
     password: formData.get("password") as string,
     confirmPassword: formData.get("confirmPassword") as string,
   };
-  const validation = registerSchema.safeParse(data);
-  const formError: registerError = {};
 
-  // Populate error object with validation errors
+  const validation = resetPasswordSchema.safeParse(data);
+  const formError: resetPasswordError = {};
+
   if (!validation.success) {
     const fieldErrors = z.treeifyError(validation.error);
     if (
-      fieldErrors.properties?.email &&
-      fieldErrors.properties.email.errors.length > 0
+      fieldErrors.properties?.code &&
+      fieldErrors.properties.code.errors.length > 0
     ) {
-      formError.email = fieldErrors.properties.email.errors[0];
+      formError.message = "Session Expired"
     }
 
     if (
@@ -74,20 +75,21 @@ export async function register(
       inputs: data,
     };
   }
+
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
-    email: data.email,
-    password: data.password,
-    options: {
-      emailRedirectTo:
-        "http://localhost:3000/register/email-confirmation/confirmed",
-    },
+  await supabase.auth.exchangeCodeForSession(validation.data.code);
+
+  const { error } = await supabase.auth.updateUser({
+    password: validation.data.password,
   });
+
   if (error) {
     return {
       errors: { message: error.message },
       inputs: data,
     };
   }
-  redirect("/register/email-confirmation");
+
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 }

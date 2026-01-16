@@ -8,23 +8,23 @@ export default function Home() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-neutral-800 rounded-lg flex items-center justify-center">
                 <Link2 className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-2xl bg-neutral-800 bg-clip-text text-transparent">
                 linku
               </span>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/login"
-                className="px-5 py-2.5 text-gray-700 hover:text-purple-600 transition-all rounded-xl hover:bg-purple-50"
+                className="px-5 py-2.5 text-gray-700 hover:text-neutral-600 transition-all rounded-xl hover:bg-purple-50"
               >
                 Login
               </Link>
               <Link
                 href="/register"
-                className="px-6 py-2.5 bg-linear-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all hover:scale-105"
+                className="px-6 py-2.5 bg-neutral-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/30 transition-all hover:scale-105"
               >
                 Get Started
               </Link>
@@ -36,11 +36,9 @@ export default function Home() {
       {/* Hero Section */}
       <div className="container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-50 to-blue-50 border border-purple-200/50 text-purple-700 rounded-full mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-50 to-blue-50 border border-purple-200/50 text-neutral-700 rounded-full mb-8 shadow-sm">
             <Sparkles className="w-4 h-4" />
-            <span className="text-sm">
-              Simple, powerful, and free
-            </span>
+            <span className="text-sm">Simple, powerful, and free</span>
           </div>
 
           <h1 className="text-7xl mb-6 bg-linear-to-r from-gray-900 via-purple-900 to-blue-900 bg-clip-text text-transparent leading-tight">
@@ -57,7 +55,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Link
               href="/register"
-              className="px-8 py-4 bg-linear-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-xl hover:shadow-purple-500/30 transition-all text-lg hover:scale-105"
+              className="px-8 py-4 bg-neutral-800 text-white rounded-xl hover:shadow-xl hover:shadow-neutral-500/30 transition-all text-lg hover:scale-105"
             >
               Claim Your Linku
             </Link>
@@ -140,7 +138,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="bg-white p-8 rounded-2xl border border-gray-200 hover:border-purple-200 hover:shadow-xl transition-all">
-              <div className="w-14 h-14 bg-linear-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/20">
+              <div className="w-14 h-14 bg-linear-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-neutral-500/20">
                 <Link2 className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-2xl mb-3">Unlimited Links</h3>
@@ -189,7 +187,7 @@ export default function Home() {
             </p>
             <Link
               href="/register"
-              className="inline-block px-10 py-4 bg-white text-purple-700 rounded-xl hover:bg-gray-50 transition-all text-lg shadow-xl hover:scale-105"
+              className="inline-block px-10 py-4 bg-white text-neutral-700 rounded-xl hover:bg-gray-50 transition-all text-lg shadow-xl hover:scale-105"
             >
               Create Your Free Linku
             </Link>
@@ -201,10 +199,10 @@ export default function Home() {
       <footer className="border-t border-gray-200 py-12 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-6 h-6 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+            <div className="size-6 bg-neutral-800 rounded-lg flex items-center justify-center">
               <Link2 className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-xl bg-neutral-800 bg-clip-text text-transparent">
               linku
             </span>
           </div>

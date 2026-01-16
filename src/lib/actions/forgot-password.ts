@@ -1,33 +1,33 @@
 "use server";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
 
-const resetRequestSchema = z.object({
+const forgotRequestSchema = z.object({
   email: z.email(),
 });
 
-export type resetRequestFormState = {
-  errors?: resetRequestError;
+export type forgotRequestFormState = {
+  errors?: forgotRequestError;
   inputs?: {
     email?: string;
   };
   success?: boolean;
 };
 
-export type resetRequestError = {
+export type forgotRequestError = {
   message?: string;
   email?: string;
 };
 
-export async function resetRequest(
-  prevState: resetRequestFormState | undefined,
+export async function forgotRequest(
+  prevState: forgotRequestFormState | undefined,
   formData: FormData
 ) {
   const data = {
     email: formData.get("email") as string,
   };
-  const validation = resetRequestSchema.safeParse(data);
-  const formError: resetRequestError = {};
+  const validation = forgotRequestSchema.safeParse(data);
+  const formError: forgotRequestError = {};
 
   if (!validation.success) {
     const fieldErrors = z.treeifyError(validation.error);
@@ -47,7 +47,7 @@ export async function resetRequest(
   const { error } = await supabase.auth.resetPasswordForEmail(
     validation.data.email,
     {
-      redirectTo: "http://localhost:3000/reset-password/confirmation",
+      redirectTo: "http://localhost:3000/forgot-password/reset",
     }
   );
   if (error) {

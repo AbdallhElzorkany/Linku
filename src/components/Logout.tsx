@@ -1,5 +1,5 @@
 "use client";
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 export default function Logout() {
@@ -7,8 +7,8 @@ export default function Logout() {
   return (
     <button
       onClick={() => {
-        supabase.auth.signOut();
-        router.refresh();
+        createClient().auth.signOut();
+        router.push("/");
       }}
       className="flex items-center gap-2"
     >

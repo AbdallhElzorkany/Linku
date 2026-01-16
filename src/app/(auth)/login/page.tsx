@@ -3,7 +3,7 @@ import Link from "next/link";
 import Form from "next/form";
 import { Link2, Mail, Lock, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useActionState, useState } from "react";
-import { login, LoginFormState } from "@/actions/login";
+import { login, LoginFormState } from "@/lib/actions/login";
 
 export default function Login() {
   const initialState: LoginFormState = {
@@ -17,14 +17,14 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-white flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-linear-to-br from-neutral-50 via-gray-50 to-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-md">
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2 mb-10">
-          <div className="w-10 h-10 bg-linear-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-            <Link2 className="w-6 h-6 text-white" />
+          <div className="size-10 bg-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/20">
+            <Link2 className="size-6 text-white" />
           </div>
-          <span className="text-3xl bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="text-3xl bg-neutral-800 bg-clip-text text-transparent">
             linku
           </span>
         </Link>
@@ -53,7 +53,7 @@ export default function Login() {
                   name="email"
                   defaultValue={state?.inputs?.email}
                   placeholder="you@example.com"
-                  className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
                   required
                 />
               </div>
@@ -75,7 +75,7 @@ export default function Login() {
                   name="password"
                   defaultValue={state?.inputs?.password}
                   placeholder="Enter your password"
-                  className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full pl-12 pr-12 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
                   required
                 />
                 <button
@@ -99,8 +99,8 @@ export default function Login() {
 
             <div className="flex items-center justify-end text-sm pt-2">
               <Link
-                href="/reset-password"
-                className="text-purple-600 hover:text-purple-700 transition-colors"
+                href="/forgot-password"
+                className="text-neutral-600 hover:text-neutral-700 transition-colors"
               >
                 Forgot password?
               </Link>
@@ -109,7 +109,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-3.5 bg-linear-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all hover:scale-[1.02] mt-6"
+              className="w-full py-3.5 bg-neutral-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/30 transition-all hover:scale-[1.02] mt-6"
             >
               {isPending ? (
                 <LoaderCircle className="animate-spin mx-auto" />
@@ -124,7 +124,7 @@ export default function Login() {
               Don&apos;t have an account?{" "}
               <Link
                 href="/register"
-                className="text-purple-600 hover:text-purple-700 transition-colors"
+                className="text-neutral-600 hover:text-neutral-700 transition-colors"
               >
                 Sign up
               </Link>
