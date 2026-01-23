@@ -1,6 +1,6 @@
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 export default function Loading() {
   return (
-    <Loader2 className=" -translate-1/2 top-1/2 left-1/2 absolute animate-spin size-16 linear text-neutral-800" />
+    <Spinner className="size-16 -translate-1/2 top-1/2 left-1/2 absolute" />
   );
 }
