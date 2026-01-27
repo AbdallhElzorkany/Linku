@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarTrigger,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -24,43 +25,35 @@ const items = [
     icon: Home,
   },
   {
-    title: "Preview",
-    url: "/preview",
-    icon: Eye,
-  },
-  {
     title: "Profile",
     url: "/profile",
     icon: User,
+  },
+  {
+    title: "Preview",
+    url: "/preview",
+    icon: Eye,
   },
   {
     title: "Share",
     url: "/share",
     icon: Share2,
   },
-  {
-    title: "Settings",
-    url: "/settings",
-    icon: Settings,
-  },
 ];
 
 export async function AppSidebar() {
   const profile = await getProfile();
   return (
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <Link2 />
                 <span>Linku</span>
               </Link>
             </SidebarMenuButton>
-            <SidebarMenuItem>
-              <SidebarTrigger />
-            </SidebarMenuItem>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -69,10 +62,10 @@ export async function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu >
+            <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem  key={item.title}>
-                  <SidebarMenuButton size="lg" variant="outline" asChild>
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton size="lg" asChild>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -90,8 +83,9 @@ export async function AppSidebar() {
           <SidebarMenuItem>
             <Logout />
           </SidebarMenuItem>
+          <SidebarSeparator />
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton size="lg" asChild>
               <div>
                 <Avatar className="size-6">
                   <AvatarImage
