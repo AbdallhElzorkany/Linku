@@ -41,8 +41,9 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     (request.nextUrl.pathname.startsWith("/dashboard") ||
-      request.nextUrl.pathname.startsWith("/profile") ||
-      request.nextUrl.pathname.startsWith("/share") ||
+    request.nextUrl.pathname.startsWith("/profile") ||
+    request.nextUrl.pathname.startsWith("/premium") ||
+    request.nextUrl.pathname.startsWith("/share") ||
       request.nextUrl.pathname.startsWith("/preview") ||
       request.nextUrl.pathname.startsWith("/get-started"))
   ) {

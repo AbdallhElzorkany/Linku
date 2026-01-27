@@ -8,8 +8,8 @@ export default function Logout() {
   return (
     <SidebarMenuButton
       asChild
-      onClick={() => {
-        supabase.auth.signOut();
+      onClick={async () => {
+        await supabase.auth.signOut();
         router.push("/");
       }}
       size="lg"

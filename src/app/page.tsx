@@ -1,5 +1,6 @@
 import { Link2, Sparkles, Palette, BarChart3, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
@@ -36,12 +37,12 @@ export default function Home() {
       {/* Hero Section */}
       <div className="container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-50 to-blue-50 border border-purple-200/50 text-neutral-700 rounded-full mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-neutral-200/50 text-neutral-700 rounded-full mb-8 shadow-sm">
             <Sparkles className="w-4 h-4" />
-            <span className="text-sm">Simple, powerful, and free</span>
+            <span className="text-sm">Simple, powerful, and cheap</span>
           </div>
 
-          <h1 className="text-7xl mb-6 bg-linear-to-r from-gray-900 via-purple-900 to-blue-900 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-7xl mb-6 bg-linear-to-r from-gray-900 via-neutral-800 to-gray-900 bg-clip-text text-transparent leading-tight">
             One link for
             <br />
             everything you are
@@ -60,26 +61,11 @@ export default function Home() {
               Claim Your Linku
             </Link>
             <Link
-              href="/johndoe"
-              className="px-8 py-4 bg-white text-gray-700 rounded-xl border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-lg"
+              href="/user/legend"
+              className="px-8 py-4 bg-white text-gray-700 rounded-xl border-2 border-gray-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all text-lg"
             >
               View Example
             </Link>
-          </div>
-
-          <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-green-500" />
-              <span>Free forever</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-green-500" />
-              <span>No credit card</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-green-500" />
-              <span>Setup in 2 minutes</span>
-            </div>
           </div>
         </div>
 
@@ -90,9 +76,15 @@ export default function Home() {
 
           <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
             <div className="text-center mb-8">
-              <div className="w-28 h-28 bg-linear-to-br from-purple-500 via-purple-600 to-blue-600 rounded-full mx-auto mb-5 shadow-lg" />
-              <h3 className="text-2xl mb-2">Sarah Johnson</h3>
-              <p className="text-gray-600">Content Creator & Designer ✨</p>
+              <Image
+                src="/pic.jpg"
+                width={100}
+                height={100}
+                alt="Abdallah Elzorkany"
+                className="w-28 h-28 bg-linear-to-br from-purple-500 via-purple-600 to-blue-600 rounded-full mx-auto mb-5 shadow-lg"
+              />
+              <h3 className="text-2xl mb-2">Abdallah Elzorkany</h3>
+              <p className="text-gray-600">Developer & Designer ✨</p>
             </div>
 
             <div className="space-y-3">
@@ -173,13 +165,112 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="bg-linear-to-b from-white via-gray-50 to-white py-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-gray-200/60 text-gray-700 rounded-full mb-6 shadow-sm">
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm">Free forever. Premium forever.</span>
+            </div>
+
+            <h2 className="text-5xl mb-4">Pricing</h2>
+            <p className="text-xl text-gray-600">Start free, upgrade once.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white rounded-3xl border border-gray-200 p-10 shadow-sm hover:shadow-xl transition-all">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center">
+                  <Link2 className="w-6 h-6 text-gray-700" />
+                </div>
+                <div>
+                  <h3 className="text-2xl">Free</h3>
+                  <p className="text-gray-600">Everything you need to start</p>
+                </div>
+              </div>
+
+              <div className="flex items-end gap-3 mb-8">
+                <span className="text-6xl">$0</span>
+                <span className="text-gray-600 mb-2">forever</span>
+              </div>
+
+              <div className="space-y-4 mb-10">
+                {["limited links", "Custom username", "Mobile responsive"].map(
+                  (feature) => (
+                    <div key={feature} className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-green-500 shrink-0" />
+                      <span className="text-gray-700">{feature}</span>
+                    </div>
+                  ),
+                )}
+              </div>
+
+              <Link
+                href="/register"
+                className="block w-full text-center px-6 py-3 rounded-2xl bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all font-medium"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            <div className="relative bg-white rounded-3xl border-2 border-neutral-800 p-10 shadow-xl hover:shadow-2xl transition-all">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <div className="px-4 py-1 rounded-full bg-neutral-800 text-white text-sm shadow-lg">
+                  Best Value
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-neutral-800 flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl">Premium</h3>
+                  <p className="text-gray-600">
+                    One-time payment, lifetime access
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-end gap-3 mb-8">
+                <span className="text-6xl">$10</span>
+                <span className="text-gray-600 mb-2">forever</span>
+              </div>
+
+              <div className="space-y-4 mb-10">
+                {[
+                  "Everything in Free",
+                  "Unlimited links",
+                  "Advanced analytics",
+                  "QR code generation",
+                  "Remove Linku branding",
+                  "Priority support",
+                ].map((feature) => (
+                  <div key={feature} className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-green-500 shrink-0" />
+                    <span className="text-gray-700">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/register"
+                className="block w-full text-center px-6 py-3 rounded-2xl bg-neutral-800 text-white hover:shadow-lg hover:shadow-neutral-500/30 transition-all font-medium"
+              >
+                Get Premium - $10
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="container mx-auto px-6 py-24">
         <div className="max-w-4xl mx-auto text-center relative">
           {/* Decorative blur */}
           <div className="absolute inset-0 bg-linear-to-r from-purple-300 to-blue-300 rounded-3xl blur-3xl opacity-20" />
 
-          <div className="relative bg-linear-to-br from-purple-600 via-purple-700 to-blue-700 rounded-3xl p-16 text-white shadow-2xl">
+          <div className="relative bg-linear-to-br from-neutral-600 via-gray-700 to-neutral-800 rounded-3xl p-16 text-white shadow-2xl">
             <h2 className="text-5xl mb-5">Ready to share your world?</h2>
             <p className="text-xl mb-10 opacity-90 leading-relaxed">
               Join thousands of creators, businesses, and influencers using

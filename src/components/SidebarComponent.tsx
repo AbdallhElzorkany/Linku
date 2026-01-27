@@ -1,4 +1,13 @@
-import { User, Home, Eye, Share2, Settings, Link2 } from "lucide-react";
+import {
+  User,
+  Home,
+  Eye,
+  Share2,
+  Settings,
+  Link2,
+  Crown,
+  Sparkles,
+} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,14 +19,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-  SidebarTrigger,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Logout from "./Logout";
 import { getProfile } from "@/lib/helpers/getprofile";
-// Menu items.
+import { Badge } from "./ui/badge";
+
 const items = [
   {
     title: "Dashboard",
@@ -49,10 +58,11 @@ export async function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/">
+              <div>
                 <Link2 />
                 <span>Linku</span>
-              </Link>
+                <Badge variant="outline">{profile.plan}</Badge>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -84,13 +94,31 @@ export async function AppSidebar() {
             <Logout />
           </SidebarMenuItem>
           <SidebarSeparator />
+          {
+            profile.plan ==="free" && (
+              <>
+                <SidebarMenuItem>
+                  <SidebarMenuButton size="lg" asChild>
+                    <Link href="/premium">
+                      <div>
+                        <Crown />
+                      </div>
+                      <div>
+                        <p className="text-sm ">Upgrade to Premium</p>
+                        <p className="text-xs">Unlock advanced features</p>
+                      </div>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarSeparator />
+              </>
+            )
+          }
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <div>
-                <Avatar className="size-6">
-                  <AvatarImage
-                    src={profile.avatar || "https://github.com/shadcn.png"}
-                  />
+                <Avatar>
+                  <AvatarImage src={profile.avatar || "pic.jpg"} />
                   <AvatarFallback>
                     {profile.display_name?.[0] || "U"}
                   </AvatarFallback>
