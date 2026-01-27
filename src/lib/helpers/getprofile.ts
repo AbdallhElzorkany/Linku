@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
-export default async function Dashboard() {
+
+export async function getProfile() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -10,12 +10,5 @@ export default async function Dashboard() {
     .select("*")
     .eq("id", user?.id)
     .single();
-  if (!profile.username) {
-    redirect("/get-started");
-  }
-  return (
-    <main>
-      <h1>Dashboard</h1>
-    </main>
-  );
+  return profile;
 }

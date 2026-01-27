@@ -1,5 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings,Link2 } from "lucide-react";
-
+import { User, Home, Eye, Share2, Settings, Link2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,41 +10,43 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Logout from "./Logout";
-
+import { getProfile } from "@/lib/helpers/getprofile";
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
+    title: "Dashboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Preview",
+    url: "/preview",
+    icon: Eye,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
+    title: "Profile",
+    url: "/profile",
+    icon: User,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Share",
+    url: "/share",
+    icon: Share2,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
 ];
 
-export function AppSidebar() {
+export async function AppSidebar() {
+  const profile = await getProfile();
   return (
     <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
@@ -57,6 +58,9 @@ export function AppSidebar() {
                 <span>Linku</span>
               </Link>
             </SidebarMenuButton>
+            <SidebarMenuItem>
+              <SidebarTrigger />
+            </SidebarMenuItem>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -65,10 +69,10 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu >
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                <SidebarMenuItem  key={item.title}>
+                  <SidebarMenuButton size="lg" variant="outline" asChild>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -84,19 +88,26 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Logout/>
-            </SidebarMenuButton>
+            <Logout />
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href="#">
+              <div>
                 <Avatar className="size-6">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage
+                    src={profile.avatar || "https://github.com/shadcn.png"}
+                  />
+                  <AvatarFallback>
+                    {profile.display_name?.[0] || "U"}
+                  </AvatarFallback>
                 </Avatar>
-                <span>username</span>
-              </Link>
+                <div>
+                  <p>{profile.display_name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    @{profile.username || "username"}
+                  </p>
+                </div>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
