@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <SidebarInset>
         <Navbar />
-        <main className="p-4">
+        <main className=" h-[98.2vh] not-md:h-screen relative overflow-auto">
           {children}
         </main>
       </SidebarInset>

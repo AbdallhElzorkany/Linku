@@ -1,13 +1,4 @@
-import {
-  User,
-  Home,
-  Eye,
-  Share2,
-  Settings,
-  Link2,
-  Crown,
-  Sparkles,
-} from "lucide-react";
+import { User, Home, Eye, Share2, Link2, Crown } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -53,7 +44,7 @@ const items = [
 export async function AppSidebar() {
   const profile = await getProfile();
   return (
-    <Sidebar variant="inset">
+    <Sidebar variant="inset" >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -94,31 +85,29 @@ export async function AppSidebar() {
             <Logout />
           </SidebarMenuItem>
           <SidebarSeparator />
-          {
-            profile.plan ==="free" && (
-              <>
-                <SidebarMenuItem>
-                  <SidebarMenuButton size="lg" asChild>
-                    <Link href="/premium">
-                      <div>
-                        <Crown />
-                      </div>
-                      <div>
-                        <p className="text-sm ">Upgrade to Premium</p>
-                        <p className="text-xs">Unlock advanced features</p>
-                      </div>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarSeparator />
-              </>
-            )
-          }
+          {profile.plan === "free" && (
+            <>
+              <SidebarMenuItem>
+                <SidebarMenuButton size="lg" asChild>
+                  <Link href="/premium">
+                    <div>
+                      <Crown />
+                    </div>
+                    <div>
+                      <p className="text-sm ">Upgrade to Premium</p>
+                      <p className="text-xs">Unlock advanced features</p>
+                    </div>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarSeparator />
+            </>
+          )}
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <div>
                 <Avatar>
-                  <AvatarImage src={profile.avatar || "pic.jpg"} />
+                  <AvatarImage src={profile.avatar_url || "pic.jpg"} />
                   <AvatarFallback>
                     {profile.display_name?.[0] || "U"}
                   </AvatarFallback>
