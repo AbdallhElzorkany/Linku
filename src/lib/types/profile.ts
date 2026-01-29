@@ -8,7 +8,7 @@ export type Profile = {
   created_at?: string;
   username: string;
   links?: Link[];
-  views?: number;
+  views: number;
   plan?: "free" | "premium";
   bio?: string;
 };
