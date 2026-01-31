@@ -1,6 +1,6 @@
 import Image from "next/image";
-import {Link} from "@/components/Link";
-import { getProfile } from "@/lib/helpers/getprofile";
+import { Link } from "@/components/Link";
+import { getProfile } from "@/lib/helpers/getProfile";
 export default async function Preview() {
   const userData = await getProfile();
 
@@ -12,7 +12,7 @@ export default async function Preview() {
           {/* Avatar */}
           <div className="text-center mb-8">
             <Image
-              src={ userData.avatar_url || "/pic.jpg"}
+              src={userData.avatar_url || "/pic.jpg"}
               width={100}
               height={100}
               className="rounded-full size-32 border-2 border-neutral-800 mx-auto mb-2"
@@ -28,7 +28,7 @@ export default async function Preview() {
           {/* Links */}
           <div className="flex flex-col gap-5 mt-10">
             {userData.links?.map((link, index) => (
-              <Link link={link} profile={userData} key={index}/>
+              <Link link={link} profile={userData} key={index} />
             ))}
           </div>
         </div>

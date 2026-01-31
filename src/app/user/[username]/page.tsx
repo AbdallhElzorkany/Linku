@@ -4,7 +4,6 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Profile } from "@/lib/types/profile";
 import { Link2 } from "lucide-react";
-import { profile } from "console";
 export default async function UserPage({
   params,
 }: {

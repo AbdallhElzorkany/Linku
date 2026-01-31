@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Logout from "./Logout";
-import { getProfile } from "@/lib/helpers/getprofile";
+import { getProfile } from "@/lib/helpers/getProfile";
 import { Badge } from "./ui/badge";
 
 const items = [
@@ -44,14 +44,16 @@ const items = [
 export async function AppSidebar() {
   const profile = await getProfile();
   return (
-    <Sidebar variant="inset" >
+    <Sidebar variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <div>
-                <Link2 />
-                <span>Linku</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-lg">
+                  <Link2 />
+                  <span>Linku</span>
+                </div>
                 <Badge variant="outline">{profile.plan}</Badge>
               </div>
             </SidebarMenuButton>
