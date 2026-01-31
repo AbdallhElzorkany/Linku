@@ -236,7 +236,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
 
                 <div>
                   <label className="block text-sm mb-2.5 text-gray-700">
-                    Bio (optional)
+                    Bio
                   </label>
                   <textarea
                     value={formData.bio}
@@ -285,7 +285,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="flex-1 py-4 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-all text-lg"
+                  className="flex-1 cursor-pointer py-4 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-all text-lg"
                 >
                   Back
                 </button>

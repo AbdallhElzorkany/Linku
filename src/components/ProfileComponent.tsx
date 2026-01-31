@@ -3,9 +3,10 @@ import { Profile } from "@/lib/types/profile";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { User, Mail, Upload, Save, Check, X } from "lucide-react";
+import { User, Mail, Upload, Save, Check, X, AlertCircle } from "lucide-react";
 import { Spinner } from "./ui/spinner";
 import { supabase } from "@/lib/supabase/client";
+import { DeleteAccountDialog } from "./DeleteAccountDialog";
 type FormData = {
   email: string;
   username: string;
@@ -273,6 +274,19 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
           </button>
         </div>
       </form>
+      <div className="pt-6 border-t border-gray-200">
+        <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+          <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 shrink-0" />
+          <div className="flex-1">
+            <h3 className="text-sm text-red-900 mb-1">Danger Zone</h3>
+            <p className="text-xs text-red-700 mb-3">
+              Once you delete your account, there is no going back. Please be
+              certain.
+            </p>
+            <DeleteAccountDialog id={profile.id} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
