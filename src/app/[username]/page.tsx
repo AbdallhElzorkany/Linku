@@ -4,17 +4,21 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Profile } from "@/lib/types/profile";
 import { Link2 } from "lucide-react";
+import NotFound from "@/app/not-found";
 export default async function UserPage({
   params,
 }: {
   params: Promise<{ username: string }>;
 }) {
   const [{ username }, supabase] = await Promise.all([params, createClient()]);
-  const { data } = await supabase
+  const { error, data } = await supabase
     .from("profiles")
     .select("*")
     .eq("username", username)
     .single();
+  if (error) {
+    return <NotFound />;
+  }
   const userData: Profile = data;
   await supabase
     .from("profiles")
@@ -32,10 +36,12 @@ export default async function UserPage({
           </span>
         </Link>
       )}
+
       {/* Profile Card */}
       <div>
         <div className="p-10 not-md:p-5  bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white">
           {/* Avatar */}
+
           <div className="text-center mb-8">
             <Image
               src={userData.avatar_url || "/pic.jpg"}
