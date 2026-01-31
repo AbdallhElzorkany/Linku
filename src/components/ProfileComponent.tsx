@@ -2,6 +2,7 @@
 import { Profile } from "@/lib/types/profile";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useEffect, useRef } from "react";
+import { format } from "date-fns";
 import Image from "next/image";
 import { User, Mail, Upload, Save, Check, X, AlertCircle } from "lucide-react";
 import { Spinner } from "./ui/spinner";
@@ -99,7 +100,7 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-lg hover:shadow-xl transition-all">
           <h2 className="text-2xl mb-6 flex items-center gap-3">
-            <div className="w-10 h-10 bg-linear-to-br from-neutral-500 to-neutral-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-linear-to-br from-neutral-800 to-gray-800 rounded-xl flex items-center justify-center">
               <User className="w-5 h-5 text-white" />
             </div>
             Profile Picture
@@ -142,7 +143,7 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
                 type="button"
                 onClick={() => ref.current?.click()}
                 disabled={pic.uploading || isSubmitting}
-                className="flex items-center disabled:cursor-not-allowed gap-2 cursor-pointer px-6 py-3 bg-linear-to-r from-neutral-600 to-gray-600 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105 mb-3"
+                className="flex items-center disabled:cursor-not-allowed gap-2 cursor-pointer px-6 py-3 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105 mb-3"
               >
                 {pic.uploading ? (
                   <>
@@ -163,7 +164,12 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
 
         {/* Basic Info */}
         <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-lg hover:shadow-xl transition-all">
-          <h2 className="text-2xl mb-6">Basic Information</h2>
+          <h2 className="text-2xl mb-6 flex items-center gap-3">
+            Basic Information
+            <span className="text-sm text-gray-500">
+              Created at {format(profile.created_at, "MMM dd, yyyy")}
+            </span>
+          </h2>
           <div className="space-y-6">
             <div>
               <label className="block text-sm mb-2.5 text-gray-700">
@@ -258,7 +264,7 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
           <button
             type="submit"
             disabled={isSubmitting || pic.uploading}
-            className="flex cursor-pointer disabled:cursor-not-allowed items-center gap-2 px-8 py-4 bg-linear-to-r from-neutral-600 to-gray-600 text-white rounded-xl hover:shadow-xl hover:shadow-neutral-500/40 transition-all hover:scale-105 overflow-hidden"
+            className="flex cursor-pointer disabled:cursor-not-allowed items-center gap-2 px-8 py-4 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-xl hover:shadow-neutral-500/40 transition-all hover:scale-105 overflow-hidden"
           >
             {isSubmitting ? (
               <>
