@@ -1,6 +1,13 @@
 import { Link2, Sparkles, Palette, BarChart3, Check } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata:Metadata={
+  title: "linku - One link for everything",
+  description: "Share your content, social profiles, store, and more with a single link. Simple, powerful, and cheap.",
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
@@ -204,13 +211,6 @@ export default function Home() {
                   ),
                 )}
               </div>
-
-              <Link
-                href="/register"
-                className="block w-full text-center px-6 py-3 rounded-2xl bg-gray-100 text-gray-800 hover:bg-gray-200 transition-all font-medium"
-              >
-                Get Started
-              </Link>
             </div>
 
             <div className="relative bg-white rounded-3xl border-2 border-neutral-800 p-10 shadow-xl hover:shadow-2xl transition-all">
@@ -252,13 +252,6 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-
-              <Link
-                href="/register"
-                className="block w-full text-center px-6 py-3 rounded-2xl bg-neutral-800 text-white hover:shadow-lg hover:shadow-neutral-500/30 transition-all font-medium"
-              >
-                Get Premium - $10
-              </Link>
             </div>
           </div>
         </div>

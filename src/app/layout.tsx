@@ -8,7 +8,10 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Linku",
+  title: {
+    default: "Linku",
+    template: "%s | Linku",
+  },
   description: "Linku is a platform for sharing and discovering links",
 };
 

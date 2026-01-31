@@ -2,6 +2,12 @@ import Image from "next/image";
 import { Link } from "@/components/Link";
 import { getProfile } from "@/lib/helpers/getProfile";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Preview",
+  description: "Preview your Linku",
+};
 export default async function Preview() {
   const userData = await getProfile();
   if (!userData.username) {

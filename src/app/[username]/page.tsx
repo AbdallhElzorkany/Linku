@@ -5,6 +5,21 @@ import { createClient } from "@/lib/supabase/server";
 import { Profile } from "@/lib/types/profile";
 import { Link2 } from "lucide-react";
 import NotFound from "@/app/not-found";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+
+  return {
+    title: username,
+    description: `View ${username}'s profile on linku`,
+  };
+}
+
 export default async function UserPage({
   params,
 }: {
