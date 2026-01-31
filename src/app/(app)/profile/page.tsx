@@ -8,5 +8,5 @@ export default async function ProfilePage() {
   if (!profile.username) {
     redirect("/get-started");
   }
-  return <ProfileComponent  profile={profile} />;
+  return <ProfileComponent profile={profile} />;
 }

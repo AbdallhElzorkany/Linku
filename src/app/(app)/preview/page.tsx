@@ -1,9 +1,12 @@
 import Image from "next/image";
 import { Link } from "@/components/Link";
 import { getProfile } from "@/lib/helpers/getProfile";
+import { redirect } from "next/navigation";
 export default async function Preview() {
   const userData = await getProfile();
-
+  if (!userData.username) {
+    redirect("/get-started");
+  }
   return (
     <div className=" not-md:mt-3 not-md:w-9/12 md:w-10/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute ">
       {/* Profile Card */}

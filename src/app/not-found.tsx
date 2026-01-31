@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, Search, Link2, UserPlus } from "lucide-react";
+import { Home, Search, Link2 } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -40,23 +40,13 @@ export default function NotFound() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-neutral-600 to-gray-600 text-white rounded-2xl hover:shadow-xl hover:shadow-neutral-500/30 transition-all hover:scale-105 shadow-lg group"
-          >
-            <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            <span>Go to Homepage</span>
-          </Link>
-
-          <Link
-            href="/register"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-neutral-600 rounded-2xl border-2 border-neutral-200 hover:border-neutral-400 hover:bg-neutral-50 transition-all hover:scale-105 shadow-md group"
-          >
-            <UserPlus className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span>register</span>
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-neutral-600 to-gray-600 text-white rounded-2xl hover:shadow-xl hover:shadow-neutral-500/30 transition-all hover:scale-105 shadow-lg group"
+        >
+          <Home className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          <span>Go to Homepage</span>
+        </Link>
 
         {/* Branding */}
         <div className="mt-12">
