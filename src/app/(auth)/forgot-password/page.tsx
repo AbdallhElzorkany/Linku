@@ -3,10 +3,8 @@ import { useActionState } from "react";
 import Form from "next/form";
 import Link from "next/link";
 import { Link2, Mail, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
-import {
-  forgotRequest,
-  forgotRequestFormState,
-} from "@/lib/actions/forgot-password";
+import { forgotRequest } from "@/lib/actions/forgot-password";
+import { forgotRequestFormState } from "@/lib/types/forget-password-types";
 export default function ForgotPassword() {
   const initialState: forgotRequestFormState = {
     errors: {},
@@ -17,7 +15,7 @@ export default function ForgotPassword() {
   };
   const [state, action, isPending] = useActionState(
     forgotRequest,
-    initialState
+    initialState,
   );
 
   if (state?.success) {

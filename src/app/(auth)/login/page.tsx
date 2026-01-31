@@ -3,7 +3,8 @@ import Link from "next/link";
 import Form from "next/form";
 import { Link2, Mail, Lock, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useActionState, useState } from "react";
-import { login, LoginFormState } from "@/lib/actions/login";
+import { login } from "@/lib/actions/login";
+import { LoginFormState } from "@/lib/types/login-types";
 
 export default function Login() {
   const initialState: LoginFormState = {

@@ -1,23 +1,13 @@
 "use server";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
+import { forgotRequestError, forgotRequestFormState } from "../types/forget-password-types";
 
 const forgotRequestSchema = z.object({
   email: z.email(),
 });
 
-export type forgotRequestFormState = {
-  errors?: forgotRequestError;
-  inputs?: {
-    email?: string;
-  };
-  success?: boolean;
-};
 
-export type forgotRequestError = {
-  message?: string;
-  email?: string;
-};
 
 export async function forgotRequest(
   prevState: forgotRequestFormState | undefined,

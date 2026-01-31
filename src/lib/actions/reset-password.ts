@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { resetPasswordError, resetPasswordFormState } from "../types/reset-password-types";
 const resetPasswordSchema = z
   .object({
     code: z.string().nonempty("Code is required"),
@@ -19,20 +20,7 @@ const resetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
-export type resetPasswordFormState = {
-  errors?: resetPasswordError;
-  inputs?: {
-    code?: string;
-    password?: string;
-    confirmPassword?: string;
-  };
-};
 
-export type resetPasswordError = {
-  message?: string;
-  password?: string;
-  confirmPassword?: string;
-};
 
 export async function resetPassword(
   prevState: resetPasswordFormState | undefined,

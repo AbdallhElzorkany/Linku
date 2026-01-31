@@ -1,8 +1,7 @@
 "use server";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { success, z } from "zod";
+import {  z } from "zod";
+import { registerError, registerFormState } from "../types/register-types";
 
 const registerSchema = z
   .object({
@@ -19,21 +18,7 @@ const registerSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
-export type registerFormState = {
-  errors?: registerError;
-  inputs?: {
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-  };
-  success?: boolean;
-};
-export type registerError = {
-  message?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-};
+
 export async function register(
   prevState: registerFormState | undefined,
   formData: FormData

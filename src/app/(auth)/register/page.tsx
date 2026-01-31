@@ -1,6 +1,7 @@
 "use client";
 import { useState, useActionState } from "react";
-import { register, registerFormState } from "@/lib/actions/register";
+import { register } from "@/lib/actions/register";
+import { registerFormState } from "@/lib/types/register-types";
 import Link from "next/link";
 import {
   Link2,

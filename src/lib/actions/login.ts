@@ -3,23 +3,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
-
+import { LoginFormState, LoginError } from "@/lib/types/login-types";
 const loginSchema = z.object({
   email: z.email(),
   password: z.string(),
 });
-export type LoginFormState = {
-  errors?: LoginError;
-  inputs?: {
-    email?: string;
-    password?: string;
-  };
-};
-export type LoginError = {
-  message?: string;
-  email?: string;
-  password?: string;
-};
+
 export async function login(
   prevState: LoginFormState | undefined,
   formData: FormData

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Link2 } from "lucide-react";
 import ResetPasswordComponent from "@/components/ResetPasswordComponent";
-import { createClient } from "@/lib/supabase/server";
 
 export default async function ResetPassword({
   searchParams,
