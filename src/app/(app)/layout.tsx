@@ -21,9 +21,7 @@ export default async function Layout({
         <AppSidebar />
         <SidebarInset>
           <Navbar />
-          <main className=" h-[98.2vh] not-md:h-screen relative overflow-auto">
-            {children}
-          </main>
+          <main>{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </ProfileProvider>

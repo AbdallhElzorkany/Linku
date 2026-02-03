@@ -6,7 +6,7 @@ import { useProfile } from "@/components/ProfileProvider";
 export default function Preview() {
   const { profile: userData } = useProfile();
   return (
-    <div className=" not-md:mt-3 not-md:w-9/12 md:w-10/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute ">
+    <div className=" not-md:mt-6 not-sm:w-11/12 sm:w-9/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute  ">
       {/* Profile Card */}
       <div>
         <div className="p-10 not-md:p-5  bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white">

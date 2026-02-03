@@ -2,10 +2,10 @@
 import { useProfile } from "@/components/ProfileProvider";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { supabase } from "@/lib/supabase/client";
 import {
   Link2,
   Plus,
-  GripVertical,
   ExternalLink,
   Trash2,
   Eye,
@@ -13,79 +13,94 @@ import {
   TrendingUp,
   Edit3,
 } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 import { Link as LinkType } from "@/lib/types/link";
 
 export default function Dashboard() {
   const { profile } = useProfile();
   const [links, setLinks] = useState<LinkType[]>(profile.links || []);
-
-  const [newLink, setNewLink] = useState<LinkType>({
-    id: links[links.length - 1].id + 1,
-    title: "",
-    url: "",
-    clicks: 0,
-  });
-  const [editingLink, setEditingLink] = useState<LinkType>({
-    id: 0,
-    title: "",
-    url: "",
-    clicks: 0,
-  });
-  const [showModals, setShowModals] = useState({
-    addModal: false,
-    editModal: false,
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<LinkType>({
+    defaultValues: {
+      clicks: 0,
+      url: "",
+      title: "",
+      id: 0,
+    },
   });
 
-  const handleEditLink = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [showModals, setShowModals] = useState<{
+    modalType: "add" | "edit";
+    openModal: boolean;
+  }>({
+    modalType: "add",
+    openModal: false,
+  });
 
-    setLinks((prevLinks) => {
-      return prevLinks.map((link) =>
-        link.id === editingLink.id
-          ? { ...link, title: editingLink.title, url: editingLink.url }
-          : link,
-      );
+  const handleEditLink: SubmitHandler<LinkType> = async (data: LinkType) => {
+    setLinks((links) => {
+      return links.map((link) => (link.id === data.id ? { ...data } : link));
     });
-
-    setEditingLink({} as LinkType);
-    setShowModals({ ...showModals, editModal: false });
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        links: links.map((link) => (link.id === data.id ? { ...data } : link)),
+      })
+      .eq("id", profile.id);
+    if (error) {
+      setError("root", { type: "server", message: error.message });
+    }
+    setShowModals({ ...showModals, openModal: false });
+    reset();
   };
 
   const openEditModal = (link: LinkType) => {
-    setEditingLink(link);
-    setShowModals({ ...showModals, editModal: true });
+    setValue("id", link.id);
+    setValue("title", link.title);
+    setValue("url", link.url);
+    setValue("clicks", link.clicks);
+    setShowModals({ ...showModals, modalType: "edit", openModal: true });
   };
 
-  const handleAddLink = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newLink.title || !newLink.url) return;
-    setNewLink((prev) => ({
-      ...prev,
-      id: links[links.length - 1].id + 1,
+  const handleAddLink: SubmitHandler<LinkType> = async (data: LinkType) => {
+    const link = {
+      ...data,
+      id: links[links.length - 1]?.id + 1 || 0,
       clicks: 0,
-    }));
-    setLinks((prev) => [...prev, newLink]);
-    setNewLink({
-      id: newLink.id + 1,
-      title: "",
-      url: "",
-      clicks: 0,
-    });
-    setShowModals({ ...showModals, addModal: false });
+    };
+    const { error } = await supabase
+      .from("profiles")
+      .update({ links: [...links, link] })
+      .eq("id", profile.id);
+    if (error) {
+      setError("root", { type: "server", message: error.message });
+    }
+    setLinks((prev) => [...prev, link]);
+    setShowModals({ ...showModals, openModal: false });
+    reset();
   };
 
   const handleDeleteLink = async (id: number) => {
     setLinks(links.filter((link) => link.id !== id));
+    await supabase
+      .from("profiles")
+      .update({ links: links.filter((link) => link.id !== id) })
+      .eq("id", profile.id);
   };
 
   const totalClicks = links.reduce((sum, link) => sum + link.clicks, 0);
-  const clickRate = Math.round(totalClicks / profile.views * 100);
+  const clickRate = Math.round((totalClicks / profile.views) * 100);
   return (
     <div className="not-md:mt-10 py-10 px-6">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Welcome Banner */}
         <div className="relative overflow-hidden bg-linear-to-br from-neutral-800 via-neutral-800 to-gray-800 rounded-3xl p-8 lg:p-10 text-white shadow-2xl">
-          {/* Animated background elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-gray-500/20 rounded-full blur-3xl" />
 
@@ -102,56 +117,32 @@ export default function Dashboard() {
         {/* Stats Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-linear-to-br from-neutral-500 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/30 group-hover:scale-110 transition-transform">
-                <Link2 className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-green-800 text-sm flex items-center gap-1 bg-green-50 px-2 py-1 rounded-lg">
-                <TrendingUp className="w-3 h-3" />
-                12%
-              </span>
+            <div className="size-12 mb-4 bg-linear-to-br from-neutral-500 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/30 group-hover:scale-110 transition-transform">
+              <Link2 className="w-6 h-6 text-white" />
             </div>
             <p className="text-gray-800 text-sm mb-1">Total Links</p>
             <p className="text-4xl">{links.length}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-linear-to-br from-gray-500 to-gray-800 rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/30 group-hover:scale-110 transition-transform">
-                <BarChart3 className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-green-800 text-sm flex items-center gap-1 bg-green-50 px-2 py-1 rounded-lg">
-                <TrendingUp className="w-3 h-3" />
-                8%
-              </span>
+            <div className="size-12 mb-4 bg-linear-to-br from-gray-500 to-gray-800 rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/30 group-hover:scale-110 transition-transform">
+              <BarChart3 className="w-6 h-6 text-white" />
             </div>
             <p className="text-gray-800 text-sm mb-1">Total Clicks</p>
             <p className="text-4xl">{totalClicks}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-linear-to-br from-green-500 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
-                <Eye className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-green-800 text-sm flex items-center gap-1 bg-green-50 px-2 py-1 rounded-lg">
-                <TrendingUp className="w-3 h-3" />
-                15%
-              </span>
+            <div className="size-12 mb-4 bg-linear-to-br from-green-500 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
+              <Eye className="w-6 h-6 text-white" />
             </div>
             <p className="text-gray-800 text-sm mb-1">Profile Views</p>
             <p className="text-4xl">{profile.views}</p>
           </div>
 
           <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-linear-to-br from-orange-500 to-orange-800 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-green-800 text-sm flex items-center gap-1 bg-green-50 px-2 py-1 rounded-lg">
-                <TrendingUp className="w-3 h-3" />
-                23%
-              </span>
+            <div className="size-12 mb-4 bg-linear-to-br from-orange-500 to-orange-800 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
+              <TrendingUp className="w-6 h-6 text-white" />
             </div>
             <p className="text-gray-800 text-sm mb-1">click Rate</p>
             <p className="text-4xl">{clickRate}%</p>
@@ -167,7 +158,9 @@ export default function Dashboard() {
                 <p className="text-gray-800">Manage and organize your links</p>
               </div>
               <button
-                onClick={() => setShowModals({ ...showModals, addModal: true })}
+                onClick={() =>
+                  setShowModals({ modalType: "add", openModal: true })
+                }
                 className="flex items-center gap-2 px-6 py-3 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105"
               >
                 <Plus className="w-5 h-5" />
@@ -188,7 +181,7 @@ export default function Dashboard() {
                 </p>
                 <button
                   onClick={() =>
-                    setShowModals({ ...showModals, addModal: true })
+                    setShowModals({ modalType: "add", openModal: true })
                   }
                   className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg transition-all"
                 >
@@ -203,10 +196,6 @@ export default function Dashboard() {
                   className="p-6 hover:bg-linear-to-r hover:from-neutral-50/50 hover:to-gray-50/50 transition-all group"
                 >
                   <div className="flex items-center gap-4">
-                    <button className="cursor-grab active:cursor-grabbing p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                      <GripVertical className="w-5 h-5 text-gray-400 group-hover:text-gray-800" />
-                    </button>
-
                     <div className="flex-1 min-w-0">
                       <p className="mb-1.5 text-lg">{link.title}</p>
                       <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -215,29 +204,31 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <div className="text-right px-4 py-2 bg-neutral-50 rounded-xl">
+                    <div className="flex items-center gap-3 not-sm:gap-1 ">
+                      <div className="flex not-md:flex-col gap-1 items-center">
+                        <button
+                          className="p-3 hover:scale-110 hover:cursor-pointer text-gray-400 hover:text-gray-800 hover:bg-gray-50 rounded-xl  transition-all"
+                          title="Edit link"
+                          onClick={() => openEditModal(link)}
+                        >
+                          <Edit3 className="w-5 h-5" />
+                        </button>
+
+                        <button
+                          className="p-3 text-gray-400 hover:scale-110 hover:cursor-pointer hover:text-red-800 hover:bg-red-50 rounded-xl  transition-all"
+                          title="Delete link"
+                          onClick={() => handleDeleteLink(link.id)}
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      </div>
+
+                      <div className="text-center px-4 py-2 bg-neutral-50 rounded-xl">
                         <p className="text-xl text-neutral-800">
                           {link.clicks}
                         </p>
                         <p className="text-xs text-gray-800">clicks</p>
                       </div>
-
-                      <button
-                        className="p-3 text-gray-400 hover:text-gray-800 hover:bg-gray-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all"
-                        title="Edit link"
-                        onClick={() => openEditModal(link)}
-                      >
-                        <Edit3 className="w-5 h-5" />
-                      </button>
-
-                      <button
-                        className="p-3 text-gray-400 hover:text-red-800 hover:bg-red-50 rounded-xl opacity-0 group-hover:opacity-100 transition-all"
-                        title="Delete link"
-                        onClick={() => handleDeleteLink(link.id)}
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -247,29 +238,46 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Add Link Modal */}
-      {showModals.addModal && (
+      {showModals.openModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-8 lg:p-10 max-w-md w-full shadow-2xl">
-            <h2 className="text-3xl mb-3">Add new link</h2>
+            <h2 className="text-3xl mb-3">
+              {showModals.modalType === "add"
+                ? "Add Link"
+                : showModals.modalType === "edit"
+                  ? "Edit Link"
+                  : ""}
+            </h2>
             <p className="text-gray-800 mb-8">
-              Share another link with your audience
+              {showModals.modalType === "add"
+                ? "Share another link with your audience"
+                : "Update your link details"}
             </p>
 
-            <form onSubmit={handleAddLink} className="space-y-6">
+            <form
+              onSubmit={handleSubmit(
+                showModals.modalType === "add" ? handleAddLink : handleEditLink,
+              )}
+              className="space-y-4"
+            >
+              {errors.root?.message && (
+                <div className="bg-red-50 text-center border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                  {errors.root.message}
+                </div>
+              )}
               <div>
                 <label className="block text-sm mb-2.5 text-gray-800">
                   Link title
                 </label>
                 <input
                   type="text"
-                  value={newLink?.title}
-                  onChange={(e) =>
-                    setNewLink((prev) => ({ ...prev, title: e.target.value }))
-                  }
+                  {...register("title", {
+                    required: "Title is required",
+                  })}
                   placeholder="My Awesome Link"
                   className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
                 />
+                <p className="text-sm text-red-500">{errors.title?.message}</p>
               </div>
 
               <div>
@@ -278,92 +286,44 @@ export default function Dashboard() {
                 </label>
                 <input
                   type="text"
-                  value={newLink?.url}
-                  onChange={(e) =>
-                    setNewLink((prev) => ({ ...prev, url: e.target.value }))
-                  }
+                  {...register("url", {
+                    required: "URL is required",
+                    pattern: {
+                      value:
+                        /^https?:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/[^\s]*)?$/,
+                      message: "URL is invalid",
+                    },
+                  })}
                   placeholder="https://example.com"
                   className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
                 />
+                <p className="text-sm text-red-500">{errors.url?.message}</p>
               </div>
 
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowModals({ ...showModals, addModal: false })
-                  }
-                  className="flex-1 py-3.5 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    reset();
+                    setShowModals({ ...showModals, openModal: false });
+                  }}
+                  className="disabled:cursor-not-allowed cursor-pointer flex-1 py-3.5 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
                 >
                   Cancel
                 </button>
                 <button
+                  disabled={isSubmitting}
                   type="submit"
-                  className="flex-1 py-3.5 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105"
+                  className="disabled:cursor-not-allowed cursor-pointer flex-1 py-3.5 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105"
                 >
-                  Add Link
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {showModals.editModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl p-8 lg:p-10 max-w-md w-full shadow-2xl">
-            <h2 className="text-3xl mb-3">Edit link</h2>
-            <p className="text-gray-600 mb-8">Update your link details</p>
-
-            <form onSubmit={handleEditLink} className="space-y-6">
-              <div>
-                <label className="block text-sm mb-2.5 text-gray-700">
-                  Link title
-                </label>
-                <input
-                  type="text"
-                  value={editingLink?.title}
-                  onChange={(e) =>
-                    setEditingLink((prev) => ({
-                      ...prev,
-                      title: e.target.value,
-                    }))
-                  }
-                  placeholder="My Awesome Link"
-                  className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm mb-2.5 text-gray-700">
-                  Destination URL
-                </label>
-                <input
-                  type="text"
-                  value={editingLink?.url}
-                  onChange={(e) =>
-                    setEditingLink((prev) => ({ ...prev, url: e.target.value }))
-                  }
-                  placeholder="https://example.com"
-                  className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:border-transparent transition-all"
-                />
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setShowModals({ ...showModals, editModal: false })
-                  }
-                  className="flex-1 py-3.5 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-3.5 bg-linear-to-r from-neutral-800 to-gray-800 text-white rounded-xl hover:shadow-lg hover:shadow-neutral-500/40 transition-all hover:scale-105"
-                >
-                  Update Link
+                  {isSubmitting ? (
+                    <Spinner className="size-5 mx-auto" />
+                  ) : showModals.modalType === "add" ? (
+                    "Add Link"
+                  ) : (
+                    "Edit Link"
+                  )}
                 </button>
               </div>
             </form>

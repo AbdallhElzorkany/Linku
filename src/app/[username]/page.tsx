@@ -40,7 +40,7 @@ export default async function UserPage({
     .update({ views: userData.views + 1 })
     .eq("id", userData.id);
   return (
-    <div className=" not-md:mt-3 not-md:w-9/12 md:w-10/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute ">
+    <div className=" not-md:mt-6 not-sm:w-11/12 sm:w-9/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute ">
       {userData.plan === "free" && (
         <Link href="/" className="flex items-center justify-center gap-2 mb-8">
           <div className="w-10 h-10 bg-linear-to-br from-neutral-600 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/20">
