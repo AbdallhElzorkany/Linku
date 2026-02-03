@@ -1,3 +1,5 @@
+"use client";
+import { useProfile } from "./ProfileProvider";
 import { User, Home, Eye, Share2, Link2, Crown } from "lucide-react";
 import {
   Sidebar,
@@ -15,7 +17,7 @@ import {
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Logout from "./Logout";
-import { getProfile } from "@/lib/helpers/getProfile";
+// import { getProfile } from "@/lib/helpers/getProfile";
 import { Badge } from "./ui/badge";
 
 const items = [
@@ -41,8 +43,9 @@ const items = [
   },
 ];
 
-export async function AppSidebar() {
-  const profile = await getProfile();
+export function AppSidebar() {
+  const { profile } = useProfile();
+  // const profile = await getProfile();
   return (
     <Sidebar variant="inset">
       <SidebarHeader>
@@ -109,7 +112,7 @@ export async function AppSidebar() {
             <SidebarMenuButton size="lg" asChild>
               <div>
                 <Avatar>
-                  <AvatarImage src={profile.avatar_url || "pic.jpg"} />
+                  <AvatarImage src={profile.avatar_url || "pic.jpg"}  />
                   <AvatarFallback>
                     {profile.display_name?.[0] || "U"}
                   </AvatarFallback>

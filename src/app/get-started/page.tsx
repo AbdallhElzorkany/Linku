@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Get Started",
-  description: "Get started with linku",
+  description: "Get started with linku - create your profile",
 };
 
 export default async function GetStartedPage() {

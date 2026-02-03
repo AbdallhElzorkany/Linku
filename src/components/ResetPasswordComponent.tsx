@@ -2,10 +2,8 @@
 import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import Form from "next/form";
 import { useState, useActionState } from "react";
-import {
-  resetPasswordFormState,
-  resetPassword,
-} from "@/lib/actions/reset-password";
+import { resetPassword } from "@/lib/actions/reset-password";
+import { resetPasswordFormState } from "@/lib/types/reset-password-types";
 
 export default function ResetPassword({ code }: { code: string }) {
   const initialState: resetPasswordFormState = {
@@ -14,7 +12,7 @@ export default function ResetPassword({ code }: { code: string }) {
   };
   const [state, formAction, isPending] = useActionState(
     resetPassword,
-    initialState
+    initialState,
   );
   const [showPasswords, setShowPasswords] = useState({
     password: false,

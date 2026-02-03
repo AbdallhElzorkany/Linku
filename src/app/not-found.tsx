@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Home, Search, Link2 } from "lucide-react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Not Found",
+  description: "The page you're looking for doesn't exist",
+};
 export default function NotFound() {
   return (
     <div className="min-h-screen overflow-hidden bg-linear-to-br from-neutral-100 via-gray-50 to-white flex items-center justify-center px-6 py-16">

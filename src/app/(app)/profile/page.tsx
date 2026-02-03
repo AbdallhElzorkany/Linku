@@ -1,18 +1,9 @@
-import { type Profile } from "@/lib/types/profile";
-import { getProfile } from "@/lib/helpers/getProfile";
-import { redirect } from "next/navigation";
+"use client";
 import ProfileComponent from "@/components/ProfileComponent";
-import { Metadata } from "next";
+import { useProfile } from "@/components/ProfileProvider";
 
-export const metadata: Metadata = {
-  title: "Profile",
-  description: "Manage your Linku profile",
-};
 
-export default async function ProfilePage() {
-  const profile: Profile = await getProfile();
-  if (!profile.username) {
-    redirect("/get-started");
-  }
+export default function ProfilePage() {
+  const { profile } = useProfile();
   return <ProfileComponent profile={profile} />;
 }
