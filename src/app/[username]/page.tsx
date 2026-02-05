@@ -15,8 +15,8 @@ export async function generateMetadata({
   const { username } = await params;
 
   return {
-    title: username,
-    description: `View ${username}'s profile on linku`,
+    title: username.substring(3),
+    description: `View ${username.substring(3)}'s profile on linku`,
   };
 }
 
@@ -26,10 +26,13 @@ export default async function UserPage({
   params: Promise<{ username: string }>;
 }) {
   const [{ username }, supabase] = await Promise.all([params, createClient()]);
+  if (!(username.startsWith("%40") && username.length > 3)) {
+    return <NotFound />;
+  }
   const { error, data } = await supabase
     .from("profiles")
     .select("*")
-    .eq("username", username)
+    .eq("username", username.substring(3))
     .single();
   if (error) {
     return <NotFound />;

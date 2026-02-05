@@ -214,7 +214,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
                         </span>
                       </div>
                       <span className="text-sm text-neutral-800">
-                        linku.app/{formData.username.value}
+                        linku.app/@{formData.username.value}
                       </span>
                     </div>
                   )}

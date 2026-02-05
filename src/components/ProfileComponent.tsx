@@ -204,7 +204,7 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
                 />
               </div>
               <p className="text-sm text-neutral-600  mt-2">
-                linku.app/{profile.username}
+                linku.app/@{profile.username}
               </p>
             </div>
 
