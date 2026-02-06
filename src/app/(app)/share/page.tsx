@@ -13,7 +13,7 @@ import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 export default function Share() {
   const {
-    profile: { username },
+    profile: { username,plan },
   } = useProfile();
   const [copied, setCopied] = useState(false);
   const shareUrl = `https://linku.app/@${username}`;
@@ -54,37 +54,42 @@ export default function Share() {
 
   return (
     <div className="lg:p-10 not-sm:p-2 sm:p-3">
-      <div className="bg-white rounded-3xl lg:mt-20 not-md:mt-20 not-md:mb-10 mx-auto shadow-2xl not-sm:p-4 p-10 not-md:max-w-2xl md:max-w-4xl">
+      <div
+        className={`bg-white rounded-3xl  not-md:mb-10 mx-auto shadow-2xl not-sm:p-4 p-10 not-md:max-w-2xl md:max-w-4xl ${plan === "free" ? "mt-40" : "lg:mt-20 not-md:mt-20"}`}
+      >
         <div className="mb-8">
           <h2 className="text-3xl mb-2">Share Your Linku</h2>
           <p className="text-gray-600">Share your profile with the world</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="bg-linear-to-br from-neutral-50 to-gray-50 rounded-2xl p-6 border-2 border-neutral-200">
-              <div className="flex justify-center mb-4">
-                <div className="bg-white p-4 rounded-2xl shadow-lg">
-                  {username ? (
-                    <QRCodeSVG
-                      value={shareUrl}
-                      size={275}
-                      level="H"
-                      marginSize={1}
-                      bgColor="white"
-                      fgColor="#262626"
-                      className="not-sm:w-[215px]"
-                    />
-                  ) : (
-                    <div className="w-[280px] h-[280px] flex items-center justify-center bg-gray-100 rounded-lg">
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-600"></div>
-                    </div>
-                  )}
+        <div
+          className={`grid ${plan === "premium" ? "lg:grid-cols-2" : ""} gap-8`}
+        >
+          {plan === "premium" && (
+            <div className="space-y-4">
+              <div className="bg-linear-to-br from-neutral-50 to-gray-50 rounded-2xl p-6 border-2 border-neutral-200">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-white p-4 rounded-2xl shadow-lg">
+                    {username ? (
+                      <QRCodeSVG
+                        value={shareUrl}
+                        size={275}
+                        level="H"
+                        marginSize={1}
+                        bgColor="white"
+                        fgColor="#262626"
+                        className="not-sm:w-[215px]"
+                      />
+                    ) : (
+                      <div className="w-[280px] h-[280px] flex items-center justify-center bg-gray-100 rounded-lg">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-600"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
+          )}
           <div className="space-y-4">
             <div className="bg-gray-50 rounded-2xl p-4 border-2 border-gray-200">
               <label className="block text-sm mb-2 text-gray-700">
@@ -121,7 +126,9 @@ export default function Share() {
               <label className="block text-sm mb-3 text-gray-700">
                 Share on Social Media
               </label>
-              <div className="grid not-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+              <div
+                className={`grid not-sm:grid-cols-1 sm:grid-cols-2  ${plan === "free" ? "lg:grid-cols-2" : "lg:grid-cols-1"} gap-2`}
+              >
                 {socialShares.map((social) => {
                   const Icon = social.icon;
                   return (

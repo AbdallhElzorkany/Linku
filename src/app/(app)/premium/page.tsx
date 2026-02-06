@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getProfile } from "@/lib/helpers/get-profile";
 import { Check, Link2, Sparkles } from "lucide-react";
+
 export const metadata: Metadata = {
   title: "Premium",
   description: "Upgrade to premium to get more features",
@@ -98,9 +99,15 @@ export default async function PremiumPage() {
             </div>
 
             {profile.plan === "free" && (
-              <button className="block w-full cursor-pointer text-center px-6 py-3 rounded-2xl bg-neutral-800 text-white hover:shadow-lg hover:shadow-neutral-500/30 transition-all font-medium">
-                Get Premium - $10
-              </button>
+              <form action="/api/premium/checkout" method="post">
+                <button
+                  type="submit"
+                  role="link"
+                  className="block w-full cursor-pointer text-center px-6 py-3 rounded-2xl bg-neutral-800 text-white hover:shadow-lg hover:shadow-neutral-500/30 transition-all font-medium"
+                >
+                  Get Premium - $10
+                </button>
+              </form>
             )}
           </div>
         </div>

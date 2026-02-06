@@ -115,39 +115,41 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="size-12 mb-4 bg-linear-to-br from-neutral-500 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/30 group-hover:scale-110 transition-transform">
-              <Link2 className="w-6 h-6 text-white" />
+        {profile.plan === "premium" && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
+              <div className="size-12 mb-4 bg-linear-to-br from-neutral-500 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/30 group-hover:scale-110 transition-transform">
+                <Link2 className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-gray-800 text-sm mb-1">Total Links</p>
+              <p className="text-4xl">{links.length}</p>
             </div>
-            <p className="text-gray-800 text-sm mb-1">Total Links</p>
-            <p className="text-4xl">{links.length}</p>
-          </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="size-12 mb-4 bg-linear-to-br from-gray-500 to-gray-800 rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/30 group-hover:scale-110 transition-transform">
-              <BarChart3 className="w-6 h-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
+              <div className="size-12 mb-4 bg-linear-to-br from-gray-500 to-gray-800 rounded-xl flex items-center justify-center shadow-lg shadow-gray-500/30 group-hover:scale-110 transition-transform">
+                <BarChart3 className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-gray-800 text-sm mb-1">Total Clicks</p>
+              <p className="text-4xl">{totalClicks}</p>
             </div>
-            <p className="text-gray-800 text-sm mb-1">Total Clicks</p>
-            <p className="text-4xl">{totalClicks}</p>
-          </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="size-12 mb-4 bg-linear-to-br from-green-500 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
-              <Eye className="w-6 h-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
+              <div className="size-12 mb-4 bg-linear-to-br from-green-500 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:scale-110 transition-transform">
+                <Eye className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-gray-800 text-sm mb-1">Profile Views</p>
+              <p className="text-4xl">{profile.views}</p>
             </div>
-            <p className="text-gray-800 text-sm mb-1">Profile Views</p>
-            <p className="text-4xl">{profile.views}</p>
-          </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
-            <div className="size-12 mb-4 bg-linear-to-br from-orange-500 to-orange-800 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
-              <TrendingUp className="w-6 h-6 text-white" />
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-xl transition-all group">
+              <div className="size-12 mb-4 bg-linear-to-br from-orange-500 to-orange-800 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <p className="text-gray-800 text-sm mb-1">click Rate</p>
+              <p className="text-4xl">{clickRate}%</p>
             </div>
-            <p className="text-gray-800 text-sm mb-1">click Rate</p>
-            <p className="text-4xl">{clickRate}%</p>
           </div>
-        </div>
+        )}
 
         {/* Links Section */}
         <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-xl">
@@ -222,13 +224,14 @@ export default function Dashboard() {
                           <Trash2 className="w-5 h-5" />
                         </button>
                       </div>
-
-                      <div className="text-center px-4 py-2 bg-neutral-50 rounded-xl">
-                        <p className="text-xl text-neutral-800">
-                          {link.clicks}
-                        </p>
-                        <p className="text-xs text-gray-800">clicks</p>
-                      </div>
+                      {profile.plan === "premium" && (
+                        <div className="text-center px-4 py-2 bg-neutral-50 rounded-xl">
+                          <p className="text-xl text-neutral-800">
+                            {link.clicks}
+                          </p>
+                          <p className="text-xs text-gray-800">clicks</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
