@@ -13,10 +13,10 @@ import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 export default function Share() {
   const {
-    profile: { username,plan },
+    profile: { username, plan },
   } = useProfile();
   const [copied, setCopied] = useState(false);
-  const shareUrl = `https://linku.app/@${username}`;
+  const shareUrl = `https://https://linku-app.vercel.app/@${username}`;
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(shareUrl);

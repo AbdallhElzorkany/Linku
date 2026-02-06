@@ -45,7 +45,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
       completeSetup();
     }
   };
-  
+
   useEffect(() => {
     const checkUsername = async () => {
       const { data } = await supabase
@@ -214,7 +214,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
                         </span>
                       </div>
                       <span className="text-sm text-neutral-800">
-                        linku.app/@{formData.username.value}
+                        https://linku-app.vercel.app/@{formData.username.value}
                       </span>
                     </div>
                   )}

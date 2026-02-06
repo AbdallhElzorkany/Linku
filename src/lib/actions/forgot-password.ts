@@ -1,17 +1,18 @@
 "use server";
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
-import { forgotRequestError, forgotRequestFormState } from "../types/forget-password-types";
+import {
+  forgotRequestError,
+  forgotRequestFormState,
+} from "../types/forget-password-types";
 
 const forgotRequestSchema = z.object({
   email: z.email(),
 });
 
-
-
 export async function forgotRequest(
   prevState: forgotRequestFormState | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   const data = {
     email: formData.get("email") as string,
@@ -37,8 +38,8 @@ export async function forgotRequest(
   const { error } = await supabase.auth.resetPasswordForEmail(
     validation.data.email,
     {
-      redirectTo: "http://localhost:3000/forgot-password/reset",
-    }
+      redirectTo: "https://linku-app.vercel.app/forgot-password/reset",
+    },
   );
   if (error) {
     return {

@@ -1,6 +1,6 @@
 "use server";
 import { createClient } from "@/lib/supabase/server";
-import {  z } from "zod";
+import { z } from "zod";
 import { registerError, registerFormState } from "../types/register-types";
 
 const registerSchema = z
@@ -10,7 +10,7 @@ const registerSchema = z
       .string()
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
       ),
     confirmPassword: z.string(),
   })
@@ -21,7 +21,7 @@ const registerSchema = z
 
 export async function register(
   prevState: registerFormState | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   const data = {
     email: formData.get("email") as string,
@@ -66,8 +66,7 @@ export async function register(
     email: data.email,
     password: data.password,
     options: {
-      emailRedirectTo:
-        "http://localhost:3000/register/confirmed",
+      emailRedirectTo: "https://linku-app.vercel.app/register/confirmed",
     },
   });
   if (error) {
