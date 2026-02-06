@@ -1,14 +1,10 @@
-import { Metadata } from "next";
-import { getProfile } from "@/lib/helpers/get-profile";
+"use client";
 import { Check, Link2, Sparkles } from "lucide-react";
 import CouponComponent from "@/components/CouponComponent";
+import { useProfile } from "@/components/ProfileProvider";
 
-export const metadata: Metadata = {
-  title: "Premium",
-  description: "Upgrade to premium to get more features",
-};
-export default async function PremiumPage() {
-  const profile = await getProfile();
+export default function PremiumPage() {
+  const { profile } = useProfile();
 
   return (
     <div className="bg-linear-to-b from-white via-gray-50 to-white pt-20 not-lg:pb-20">
