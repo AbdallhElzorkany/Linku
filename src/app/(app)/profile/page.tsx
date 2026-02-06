@@ -4,6 +4,6 @@ import { useProfile } from "@/components/ProfileProvider";
 
 
 export default function ProfilePage() {
-  const { profile } = useProfile();
-  return <ProfileComponent profile={profile} />;
+  const { profile ,setProfile} = useProfile();
+  return <ProfileComponent profile={profile} setProfile={setProfile} />;
 }

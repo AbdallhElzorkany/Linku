@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getProfile } from "@/lib/helpers/get-profile";
 import { Check, Link2, Sparkles } from "lucide-react";
+import CouponComponent from "@/components/CouponComponent";
 
 export const metadata: Metadata = {
   title: "Premium",
@@ -13,10 +14,6 @@ export default async function PremiumPage() {
     <div className="bg-linear-to-b from-white via-gray-50 to-white pt-20 not-lg:pb-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-gray-200/60 text-gray-600 rounded-full mb-6 shadow-sm">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm">Free forever. Premium forever.</span>
-          </div>
 
           <h2 className="text-5xl mb-4">Pricing</h2>
           <p className="text-xl text-gray-600">Start free, upgrade once.</p>
@@ -97,6 +94,8 @@ export default async function PremiumPage() {
                 </div>
               ))}
             </div>
+
+            {profile.plan === "free" && <CouponComponent />}
 
             {profile.plan === "free" && (
               <form action="/api/premium/checkout" method="post">

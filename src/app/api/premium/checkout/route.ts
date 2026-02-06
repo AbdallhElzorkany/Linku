@@ -2,12 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
 import { stripe } from "@/lib/stripe";
-import { createClient } from "@/lib/supabase/server";
 export async function POST() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
   try {
     const headersList = await headers();
     const origin = headersList.get("origin");
@@ -26,7 +21,6 @@ export async function POST() {
       mode: "payment",
     });
     return NextResponse.redirect(session.url!, 303);
-    
   } catch (error) {
     if (error instanceof Error)
       return NextResponse.json({ error: error.message }, { status: 500 });

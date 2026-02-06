@@ -27,7 +27,28 @@ Share your content, social profiles, store, and more with a single beautiful lin
 - **🔒 Secure Authentication** - Built with Supabase for secure user management
 - **⚡ Lightning Fast** - Built with Next.js 16 and optimized for performance
 
-## 🚀 Quick Start
+## � Premium Access
+
+### Special Offer - Free Premium Access
+
+Use the coupon code **`FREE10`** to get free premium access!
+
+**How to redeem:**
+
+1. Sign up for a free account
+2. Navigate to the Premium page
+3. Enter coupon code `FREE10` at checkout
+4. Enjoy lifetime premium features at no cost!
+
+**Premium Features Include:**
+
+- Unlimited links and categories
+- Advanced analytics and insights
+- Custom themes and branding
+- Priority support
+- Early access to new features
+
+## �🚀 Quick Start
 
 ### Prerequisites
 

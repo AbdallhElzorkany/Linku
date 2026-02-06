@@ -27,7 +27,7 @@ export default async function PremiumSuccessPage({
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const { error } = await supabase
+    await supabase
       .from("profiles")
       .update({ plan: "premium" })
       .eq("id", user?.id);

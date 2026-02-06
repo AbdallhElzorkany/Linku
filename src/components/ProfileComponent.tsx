@@ -1,7 +1,7 @@
 "use client";
 import { Profile } from "@/lib/types/profile";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, SetStateAction, Dispatch } from "react";
 import { format } from "date-fns";
 import Image from "next/image";
 import { User, Mail, Upload, Save, Check, X, AlertCircle } from "lucide-react";
@@ -15,7 +15,7 @@ type FormData = {
   display_name: string;
   avatar_url: string;
 };
-export default function ProfileComponent({ profile }: { profile: Profile }) {
+export default function ProfileComponent({ profile,setProfile }: { profile: Profile,setProfile: Dispatch<SetStateAction<Profile>> }) {
   const {
     register,
     handleSubmit,
@@ -62,10 +62,14 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
         })
         .eq("id", profile.id),
     ]);
+
     if (error) {
       setError("root", { type: "server", message: error.message });
-    }
+      return;
+    } 
+    setProfile((prev) => ({ ...prev, ...data }));
   };
+
   useEffect(() => {
     const picUpload = async () => {
       if (!pic.file) return;
@@ -204,7 +208,7 @@ export default function ProfileComponent({ profile }: { profile: Profile }) {
                 />
               </div>
               <p className="text-sm text-neutral-600  mt-2">
-                https://linku-app.vercel.app/@{profile.username}
+                linku-app.vercel.app/@{profile.username}
               </p>
             </div>
 

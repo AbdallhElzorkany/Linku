@@ -214,7 +214,7 @@ export default function GetStarted({ id }: { id: string | undefined }) {
                         </span>
                       </div>
                       <span className="text-sm text-neutral-800">
-                        https://linku-app.vercel.app/@{formData.username.value}
+                        linku-app.vercel.app/@{formData.username.value}
                       </span>
                     </div>
                   )}

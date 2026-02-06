@@ -16,7 +16,7 @@ export default function Share() {
     profile: { username, plan },
   } = useProfile();
   const [copied, setCopied] = useState(false);
-  const shareUrl = `https://https://linku-app.vercel.app/@${username}`;
+  const shareUrl = `https://linku-app.vercel.app/@${username}`;
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(shareUrl);
