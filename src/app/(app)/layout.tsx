@@ -2,7 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/SidebarComponent";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { Navbar } from "@/components/Navbar";
-import { getProfile } from "@/lib/helpers/getProfile";
+import { getProfile } from "@/lib/helpers/get-profile";
 import { redirect } from "next/navigation";
 import { Profile } from "@/lib/types/profile";
 import { ProfileProvider } from "@/components/ProfileProvider";

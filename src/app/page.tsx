@@ -26,7 +26,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <Link
                 href="/login"
-                className="px-5 py-2.5 text-gray-700 hover:text-neutral-600 transition-all rounded-xl hover:bg-purple-50"
+                className="px-5 py-2.5 text-gray-600 hover:text-neutral-800 transition-all rounded-xl hover:bg-purple-50"
               >
                 Login
               </Link>
@@ -69,7 +69,7 @@ export default function Home() {
             </Link>
             <Link
               href="/user/legend"
-              className="px-8 py-4 bg-white text-gray-700 rounded-xl border-2 border-gray-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all text-lg"
+              className="px-8 py-4 bg-white text-gray-600 rounded-xl border-2 border-gray-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all text-lg"
             >
               View Example
             </Link>
@@ -175,7 +175,7 @@ export default function Home() {
       <div className="bg-linear-to-b from-white via-gray-50 to-white py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-gray-200/60 text-gray-700 rounded-full mb-6 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-gray-200/60 text-gray-600 rounded-full mb-6 shadow-sm">
               <Sparkles className="w-4 h-4" />
               <span className="text-sm">Free forever. Premium forever.</span>
             </div>
@@ -188,7 +188,7 @@ export default function Home() {
             <div className="bg-white rounded-3xl border border-gray-200 p-10 shadow-sm hover:shadow-xl transition-all">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center">
-                  <Link2 className="w-6 h-6 text-gray-700" />
+                  <Link2 className="w-6 h-6 text-gray-600" />
                 </div>
                 <div>
                   <h3 className="text-2xl">Free</h3>
@@ -202,11 +202,11 @@ export default function Home() {
               </div>
 
               <div className="space-y-4 mb-10">
-                {["limited links", "Custom username", "Mobile responsive"].map(
+                {["Unlimited links", "Custom username", "Mobile responsive"].map(
                   (feature) => (
                     <div key={feature} className="flex items-center gap-3">
                       <Check className="w-5 h-5 text-green-500 shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-gray-600">{feature}</span>
                     </div>
                   ),
                 )}
@@ -240,7 +240,6 @@ export default function Home() {
               <div className="space-y-4 mb-10">
                 {[
                   "Everything in Free",
-                  "Unlimited links",
                   "Advanced analytics",
                   "QR code generation",
                   "Remove Linku branding",
@@ -248,7 +247,7 @@ export default function Home() {
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-green-500 shrink-0" />
-                    <span className="text-gray-700">{feature}</span>
+                    <span className="text-gray-600">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -263,7 +262,7 @@ export default function Home() {
           {/* Decorative blur */}
           <div className="absolute inset-0 bg-linear-to-r from-purple-300 to-blue-300 rounded-3xl blur-3xl opacity-20" />
 
-          <div className="relative bg-linear-to-br from-neutral-600 via-gray-700 to-neutral-800 rounded-3xl p-16 text-white shadow-2xl">
+          <div className="relative bg-linear-to-br from-neutral-800 via-gray-800 to-neutral-800 rounded-3xl p-16 text-white shadow-2xl">
             <h2 className="text-5xl mb-5">Ready to share your world?</h2>
             <p className="text-xl mb-10 opacity-90 leading-relaxed">
               Join thousands of creators, businesses, and influencers using

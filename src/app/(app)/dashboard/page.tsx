@@ -102,7 +102,7 @@ export default function Dashboard() {
         {/* Welcome Banner */}
         <div className="relative overflow-hidden bg-linear-to-br from-neutral-800 via-neutral-800 to-gray-800 rounded-3xl p-8 lg:p-10 text-white shadow-2xl">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gray-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gray-800/20 rounded-full blur-3xl" />
 
           <div className="relative z-10">
             <h1 className="text-3xl lg:text-4xl mb-3">

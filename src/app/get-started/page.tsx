@@ -1,5 +1,5 @@
 import GetStarted from "@/components/getStarted";
-import { getProfile } from "@/lib/helpers/getProfile";
+import { getProfile } from "@/lib/helpers/get-profile";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
