@@ -1,3 +1,3 @@
-export async function GET() {
+export async function POST(request: Request) {
     return Response.json({ message: "Hello World" });
 }
