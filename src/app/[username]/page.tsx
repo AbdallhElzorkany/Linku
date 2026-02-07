@@ -19,8 +19,9 @@ export async function generateMetadata({
     .select("*")
     .eq("username", username.substring(3))
     .single();
+
   return {
-    title: profile?.display_name,
+    title: profile?.display_name || "Not Found",
     description: `View ${profile?.display_name}'s profile on linku`,
     openGraph: {
       type: "website",
