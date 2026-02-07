@@ -44,16 +44,14 @@ export default async function UserPage({
     .eq("id", userData.id);
   return (
     <div className=" not-md:mt-6 not-sm:w-11/12 sm:w-9/12 lg:w-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute ">
-      {userData.plan === "free" && (
-        <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="w-10 h-10 bg-linear-to-br from-neutral-600 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/20">
-            <Link2 className="w-6 h-6 text-white" />
-          </div>
-          <span className="text-3xl bg-linear-to-r from-neutral-600 to-neutral-800 bg-clip-text text-transparent">
-            linku
-          </span>
-        </Link>
-      )}
+      <Link href="/" className="flex items-center justify-center gap-2 mb-8">
+        <div className="w-10 h-10 bg-linear-to-br from-neutral-600 to-neutral-800 rounded-xl flex items-center justify-center shadow-lg shadow-neutral-500/20">
+          <Link2 className="w-6 h-6 text-white" />
+        </div>
+        <span className="text-3xl bg-linear-to-r from-neutral-600 to-neutral-800 bg-clip-text text-transparent">
+          linku
+        </span>
+      </Link>
 
       {/* Profile Card */}
       <div>
@@ -76,7 +74,9 @@ export default async function UserPage({
           </div>
 
           {/* Links */}
-          {userData?.links && <UserLinks linksArray={userData.links} id={userData.id} />}
+          {userData?.links && (
+            <UserLinks linksArray={userData.links} id={userData.id} />
+          )}
         </div>
       </div>
       {userData.plan === "free" && (
