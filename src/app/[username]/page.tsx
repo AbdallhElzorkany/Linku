@@ -13,10 +13,31 @@ export async function generateMetadata({
   params: Promise<{ username: string }>;
 }): Promise<Metadata> {
   const { username } = await params;
-
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("username", username.substring(3))
+    .single();
   return {
-    title: username.substring(3),
-    description: `View ${username.substring(3)}'s profile on linku`,
+    title: profile?.display_name,
+    description: `View ${profile?.display_name}'s profile on linku`,
+    openGraph: {
+      type: "website",
+      siteName: "Linku",
+      title: `${profile?.display_name} - Linku`,
+      description:
+        `Linku is a modern platform for sharing, organizing, and discovering interesting links. Connect with others, save bookmarks, and explore curated content.`,
+      url: `https://linku-app.vercel.app/@${profile?.username}`,
+      images: [
+        {
+          url: profile?.avatar_url || "/pic.jpg",
+          width: 500,
+          height: 500,
+          alt: `View ${profile?.display_name}'s profile on linku`,
+        },
+      ],
+    },
   };
 }
 
