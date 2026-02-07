@@ -28,8 +28,13 @@ export const metadata: Metadata = {
     "link collection",
     "web bookmarks",
   ],
-  authors: [{ name: "Linku Team" }],
-  creator: "Linku",
+  authors: [
+    {
+      name: "Abdallh Elzorkany (Legend)",
+      url: "https://github.com/AbdallhElzorkany",
+    },
+  ],
+  creator: "Abdallh Elzorkany (Legend)",
   robots: {
     index: true,
     follow: true,
