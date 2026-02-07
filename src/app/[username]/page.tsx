@@ -26,12 +26,11 @@ export async function generateMetadata({
       type: "website",
       siteName: "Linku",
       title: `${profile?.display_name} - Linku`,
-      description:
-        `Linku is a modern platform for sharing, organizing, and discovering interesting links. Connect with others, save bookmarks, and explore curated content.`,
+      description: `Linku is a modern platform for sharing, organizing, and discovering interesting links. Connect with others, save bookmarks, and explore curated content.`,
       url: `https://linku-app.vercel.app/@${profile?.username}`,
       images: [
         {
-          url: profile?.avatar_url || "/pic.jpg",
+          url: profile?.avatar_url ? profile?.avatar_url : "/pic.jpg",
           width: 500,
           height: 500,
           alt: `View ${profile?.display_name}'s profile on linku`,

@@ -13,7 +13,7 @@ export default function Preview() {
           {/* Avatar */}
           <div className="text-center mb-8">
             <Image
-              src={userData.avatar_url || "/pic.jpg"}
+              src={userData.avatar_url ? userData.avatar_url : "/pic.jpg"}
               width={100}
               height={100}
               className="rounded-full aspect-square object-cover size-32 border-2 border-neutral-800 mx-auto mb-2"

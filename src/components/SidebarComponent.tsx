@@ -112,7 +112,7 @@ export function AppSidebar() {
             <SidebarMenuButton size="lg" asChild>
               <div>
                 <Avatar>
-                  <AvatarImage src={profile.avatar_url || "pic.jpg"}  />
+                  <AvatarImage src={profile.avatar_url? profile.avatar_url:"pic.jpg"}  />
                   <AvatarFallback>
                     {profile.display_name?.[0] || "U"}
                   </AvatarFallback>
