@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { Link as LinkComponent } from "@/components/Link";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Profile } from "@/lib/types/profile";
 import { Link2 } from "lucide-react";
 import NotFound from "@/app/not-found";
 import type { Metadata } from "next";
+import UserLinks from "@/components/UserLinks";
 
 export async function generateMetadata({
   params,
@@ -76,11 +76,7 @@ export default async function UserPage({
           </div>
 
           {/* Links */}
-          <div className="flex flex-col gap-5 mt-10">
-            {userData.links?.map((link, index) => (
-              <LinkComponent link={link} profile={userData} key={index} />
-            ))}
-          </div>
+          {userData?.links && <UserLinks linksArray={userData.links} id={userData.id} />}
         </div>
       </div>
       {userData.plan === "free" && (

@@ -1,29 +1,24 @@
 "use client";
 import { ExternalLink } from "lucide-react";
-import { Link as LinkType } from "@/lib/types/link";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { Profile } from "@/lib/types/profile";
-export function Link({ link, profile }: { link: LinkType; profile: Profile }) {
-  const [links, setLinks] = useState(profile.links);
+import { LinkProps } from "@/lib/types/link-props";
+export function Link({ link, links, setLinks, id }: LinkProps) {
   useEffect(() => {
     const clicksRequest = async () => {
       try {
-        await supabase
-          .from("profiles")
-          .update({links:links})
-          .eq("id", profile.id);
+        await supabase.from("profiles").update({ links: links }).eq("id", id);
       } catch (error) {
         console.log(error);
       }
     };
     clicksRequest();
-  }, [links,profile.id]);
+  }, [links, id]);
 
   const handleClick = () => {
-    setLinks(
-      links?.map((linkObject) =>
-        link.title === linkObject.title
+    setLinks((prevLinks) =>
+      prevLinks?.map((linkObject) =>
+        link.id === linkObject.id
           ? { ...linkObject, clicks: linkObject.clicks + 1 }
           : linkObject,
       ),
@@ -31,7 +26,7 @@ export function Link({ link, profile }: { link: LinkType; profile: Profile }) {
   };
   return (
     <a
-    className="relative"
+      className="relative"
       target="_blank"
       href={link.url.startsWith("http") ? link.url : `https://${link.url}`}
       onClick={handleClick}
