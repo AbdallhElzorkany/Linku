@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Check, Sparkles, Crown, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { revalidatePath } from "next/cache";
+import ChangePlan from "@/components/ChangePlan";
 
 export default async function PremiumSuccessPage({
   searchParams,
@@ -35,6 +37,7 @@ export default async function PremiumSuccessPage({
 
   return (
     <div className="bg-linear-to-b from-white via-gray-50 to-white pt-20 pb-10">
+      <ChangePlan />
       <div className="container mx-auto px-6">
         <div className="max-w-2xl mx-auto text-center">
           {/* Success Icon */}
