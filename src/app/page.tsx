@@ -11,7 +11,6 @@ export const metadata:Metadata={
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-b border-gray-200/50 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -41,7 +40,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <div className="container mx-auto px-6 pt-32 pb-20">
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-neutral-50 to-gray-50 border border-neutral-200/50 text-neutral-700 rounded-full mb-8 shadow-sm">
@@ -68,7 +66,7 @@ export default function Home() {
               Claim Your Linku
             </Link>
             <Link
-              href="/user/legend"
+              href="/@legend"
               className="px-8 py-4 bg-white text-gray-600 rounded-xl border-2 border-gray-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all text-lg"
             >
               View Example
@@ -76,9 +74,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Demo Preview */}
         <div className="max-w-sm mx-auto mt-24 relative">
-          {/* Decorative blur */}
           <div className="absolute -inset-10 bg-linear-to-r from-purple-300 to-blue-300 rounded-full blur-3xl opacity-20" />
 
           <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
@@ -125,7 +121,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features Section */}
       <div className="bg-linear-to-b from-gray-50 to-white py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
